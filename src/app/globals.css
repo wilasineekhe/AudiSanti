@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * ชุดสีของเว็บ (ค่า R G B)
+ * ค่าเริ่มต้น = ธีมสว่าง สบายตา (พื้นครีมอ่อน ตัวอักษรเทาเข้ม สีหลักฟ้าอมเขียว)
+ * ถ้าอยากกลับไปใช้ธีมมืด ให้ใส่ data-theme="dark" ที่แท็ก <html> ใน src/app/layout.tsx
+ */
+@layer base {
+  :root {
+    color-scheme: light;
+    --strong: 35 38 43;
+    --deep: 238 235 228;
+    --ink: 246 244 239;
+    --card: 255 255 255;
+    --raised: 241 238 232;
+    --line: 226 222 214;
+    --fg: 58 61 66;
+    --fg-2: 78 81 87;
+    --fg-3: 98 101 107;
+    --faint: 154 152 147;
+    --muted: 110 112 117;
+    --accent: 36 118 138;
+    --accent-hover: 30 101 119;
+    --accent-dim: 26 88 102;
+    --ok: 47 138 94;
+    --ok-fg: 31 102 68;
+    --ok-deep: 228 242 234;
+    --sold: 110 112 117;
+    --sold-deep: 236 235 232;
+    --warn: 199 122 30;
+    --warn-fg: 122 74 16;
+    --danger: 180 35 24;
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --strong: 237 234 228;
+    --deep: 23 24 27;
+    --ink: 28 29 32;
+    --card: 37 39 43;
+    --raised: 44 47 52;
+    --line: 58 61 67;
+    --fg: 222 219 212;
+    --fg-2: 196 192 184;
+    --fg-3: 171 167 159;
+    --faint: 117 114 108;
+    --muted: 154 150 143;
+    --accent: 94 185 206;
+    --accent-hover: 121 198 216;
+    --accent-dim: 74 162 183;
+    --ok: 108 196 154;
+    --ok-fg: 205 235 218;
+    --ok-deep: 31 51 41;
+    --sold: 154 150 143;
+    --sold-deep: 42 43 46;
+    --warn: 227 166 91;
+    --warn-fg: 240 213 174;
+    --danger: 241 154 146;
+  }
+  html { -webkit-tap-highlight-color: transparent; }
+  body {
+    @apply bg-ink text-fg antialiased;
+    font-feature-settings: "kern";
+  }
+  ::selection { @apply bg-accent/30 text-white; }
+  input, select, textarea, button { font: inherit; }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-4 text-sm font-medium transition
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary { @apply btn bg-accent text-ink hover:bg-accent-hover active:bg-accent-dim; }
+  .btn-outline { @apply btn border border-line bg-card text-fg hover:border-accent/60 hover:text-white; }
+  .btn-ghost { @apply btn text-muted hover:bg-card hover:text-white; }
+  .btn-danger { @apply btn border border-red-500/40 bg-red-500/10 text-danger hover:bg-red-500/20; }
+  .btn-sm { @apply min-h-[36px] rounded-lg px-3 text-xs; }
+  .input {
+    @apply min-h-[44px] w-full rounded-xl border border-line bg-ink px-3.5 text-sm text-white placeholder:text-faint
+      transition focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25;
+  }
+  textarea.input { @apply py-3 leading-relaxed; }
+  select.input {
+    @apply cursor-pointer appearance-none bg-no-repeat pr-9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A8C90' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-size: 16px; background-position: right 12px center;
+  }
+  .label { @apply mb-1.5 block text-sm font-medium text-fg-2; }
+  .card { @apply rounded-2xl border border-line bg-card shadow-[0_1px_2px_rgb(0_0_0/0.04)]; }
+  .chip {
+    @apply inline-flex min-h-[36px] shrink-0 items-center gap-1.5 rounded-full border border-line bg-card px-3.5 text-sm text-fg-2 transition hover:border-accent/60 hover:text-white;
+  }
+  .chip-active { @apply border-accent bg-accent/10 text-accent hover:text-accent; }
+  .badge { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium; }
+  .badge-ok { @apply badge bg-ok/15 text-ok ring-1 ring-ok/30; }
+  .badge-sold { @apply badge bg-sold/15 text-sold ring-1 ring-sold/30; }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .grid-bg {
+    background-image: linear-gradient(rgb(var(--line) / 0.6) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--line) / 0.6) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+/* เนื้อหาบทความจาก Markdown */
+.prose-santi { @apply text-[15px] leading-8 text-fg sm:text-base; }
+.prose-santi > * + * { @apply mt-5; }
+.prose-santi h2 { @apply mt-10 font-display text-xl font-semibold text-white sm:text-2xl; }
+.prose-santi h3 { @apply mt-8 font-display text-lg font-semibold text-white; }
+.prose-santi a { @apply text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent; }
+.prose-santi ul { @apply list-disc space-y-2 pl-6 marker:text-accent; }
+.prose-santi ol { @apply list-decimal space-y-2 pl-6 marker:text-accent; }
+.prose-santi blockquote { @apply rounded-r-xl border-l-4 border-accent bg-card px-5 py-3 text-fg-2; }
+.prose-santi img { @apply w-full rounded-2xl border border-line; }
+.prose-santi code { @apply rounded bg-card px-1.5 py-0.5 text-sm text-accent; }
+.prose-santi pre { @apply overflow-x-auto rounded-xl border border-line bg-card p-4; }
+.prose-santi pre code { @apply bg-transparent p-0; }
+.prose-santi hr { @apply border-line; }
+.prose-santi strong { @apply text-white; }
+.prose-santi table { @apply block w-full overflow-x-auto text-sm; }
+.prose-santi th, .prose-santi td { @apply border border-line px-3 py-2 text-left; }
+.prose-santi th { @apply bg-card text-white; }

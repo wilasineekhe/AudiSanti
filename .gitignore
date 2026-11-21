@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+.env
+.env.local
+uploads
+.pgdata
+*.tsbuildinfo
+next-env.d.ts
+.env.local-pg
+setup-postgres.cmd
+vercel-env.local.txt
+.vercel
+.db-backup
+.claude/
+AudiSanti/
